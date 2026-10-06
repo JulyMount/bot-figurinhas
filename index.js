@@ -12,6 +12,19 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Rota simples para o UptimeRobot acessar
+app.get('/', (req, res) => {
+  res.send('Bot de Figurinhas está rodando 24/7!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Servidor HTTP rodando na porta ${PORT}`);
+});
+
 ffmpeg.setFfmpegPath(ffmpegPath);
 process.env.PATH = `${ffmpegPath};${process.env.PATH}`;
 
