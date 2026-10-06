@@ -1,0 +1,5 @@
+node_modules/
+auth_info_baileys/
+temp_in_*
+temp_out_*
+.env
