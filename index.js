@@ -38,21 +38,21 @@ function compressVideo(inputBuffer) {
         fs.writeFileSync(inputPath, inputBuffer);
 
         ffmpeg(inputPath)
-            .setDuration(5) // Limita a no máximo 5 segundos
-            .fps(10)        // Reduz a 10 quadros por segundo
-            .videoFilters('scale=320:320:force_original_aspect_ratio=decrease,pad=320:320:(ow-iw)/2:(oh-ih)/2') // Corrigido para .videoFilters
+            .setDuration(5)
+            .fps(10)
+            // Corta o centro do vídeo em formato quadrado (1:1) e redimensiona
+            .videoFilters('crop=ih:ih,scale=320:320')
             .outputOptions([
                 '-vcodec', 'libwebp',
                 '-lossless', '0',
                 '-compression_level', '6',
-                '-q:v', '30',  // Qualidade da compressão (reduz peso)
+                '-q:v', '30',
                 '-loop', '0',
                 '-preset', 'default'
             ])
             .toFormat('webp')
             .on('end', () => {
                 const outputBuffer = fs.readFileSync(outputPath);
-                // Limpa arquivos temporários
                 if (fs.existsSync(inputPath)) fs.unlinkSync(inputPath);
                 if (fs.existsSync(outputPath)) fs.unlinkSync(outputPath);
                 resolve(outputBuffer);
