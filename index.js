@@ -41,7 +41,7 @@ function compressVideo(inputBuffer) {
             .setDuration(5)
             .fps(10)
             // Corta o centro do vídeo em formato quadrado (1:1) e redimensiona
-            .videoFilters('scale=320:320:force_original_aspect_ratio=decrease,pad=320:320:(ow-iw)/2:(oh-ih)/2')
+            .videoFilters('scale=320:320:force_original_aspect_ratio=increase,crop=320:320')
             .outputOptions([
                 '-vcodec', 'libwebp',
                 '-lossless', '0',
