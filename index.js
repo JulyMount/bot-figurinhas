@@ -99,9 +99,12 @@ async function connectToWhatsApp() {
 
         const messageType = Object.keys(msg.message)[0];
 
-        // Log temporário para inspecionar figurinhas recebidas
-        if (messageType === 'stickerMessage') {
-            console.log('🎧 Sticker recebido:', JSON.stringify(msg.message.stickerMessage, null, 2));
+        // Log temporário apenas para mensagens recebidas de fora (ignora mensagens enviadas por você)
+        if (!msg.key.fromMe) {
+            console.log('📩 Tipo de mensagem recebida:', Object.keys(msg.message));
+            if (messageType === 'stickerMessage') {
+                console.log('🎧 Sticker recebido:', JSON.stringify(msg.message.stickerMessage, null, 2));
+            }
         }
 
         const isVideo = messageType === 'videoMessage';
@@ -150,13 +153,3 @@ async function connectToWhatsApp() {
 }
 
 connectToWhatsApp();
-//[cite: 1]
-
-//---
-
-//### Como aplicar sem risco:
-//1. Substitua o conteúdo do seu `index.js` local por esse código acima.
-//2. Envie para o GitHub (`git add .`, `git commit -m "Adiciona log de inspeção de sticker"`, `git push`) e espere o Render terminar o deploy.
-//3. Encaminhe a figurinha com áudio para o bot e veja o que aparece nos logs do Render.
-
-//Quando fizer isso, me diga o que apareceu na linha `🎧 Sticker recebido:`!
