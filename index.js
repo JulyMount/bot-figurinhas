@@ -98,15 +98,6 @@ async function connectToWhatsApp() {
         if (!msg.message) return;
 
         const messageType = Object.keys(msg.message)[0];
-
-        // Log temporário apenas para mensagens recebidas de fora (ignora mensagens enviadas por você)
-        if (!msg.key.fromMe) {
-            console.log('📩 Tipo de mensagem recebida:', Object.keys(msg.message));
-            if (messageType === 'stickerMessage') {
-                console.log('🎧 Sticker recebido:', JSON.stringify(msg.message.stickerMessage, null, 2));
-            }
-        }
-
         const isVideo = messageType === 'videoMessage';
         
         const caption = msg.message[messageType]?.caption?.toLowerCase().trim() || '';
